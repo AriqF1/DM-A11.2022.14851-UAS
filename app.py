@@ -116,3 +116,8 @@ if abnormalities:
         st.warning(warning)
 else:
     st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
+
+# Prediction using the loaded model
+prediction = model.predict(inputs)
+st.subheader("Predicted Fitness Level:")
+st.write("Predicted Fitness Level: " + str(prediction[0]))
