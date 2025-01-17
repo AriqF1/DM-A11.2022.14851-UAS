@@ -7,7 +7,7 @@ model = joblib.load('decision_tree_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
 # App title
-st.title("Fitness Level Prediction App")
+st.title("Cek Tingkat Kebugaranmu")
 
 # User input
 st.sidebar.header("Input Features")
