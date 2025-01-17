@@ -101,7 +101,7 @@ def check_abnormalities(inputs, normal_ranges):
 
 # Input dari pengguna
 input_df = user_input_features()
-abnormalities = check_abnormalities(user_inputs, normal_ranges)
+abnormalities = check_abnormalities(input_df, normal_ranges)
 
 # Display user input
 st.subheader("User Input:")
