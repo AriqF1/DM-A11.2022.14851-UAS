@@ -115,7 +115,7 @@ if st.button('Cek'):
         abnormalities = check_abnormalities(inputs, normal_ranges)
 
         # Display user input
-        st.subheader("User Input:")
+        st.subheader("Tabel Kondisi Fisikmu:")
         st.write(inputs)
 
         # Prediksi
