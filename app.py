@@ -38,19 +38,29 @@ def user_input_features():
     experience_level_intermediate = 1 if experience_level == "Intermediate" else 0
     experience_level_advanced = 1 if experience_level == "Advanced" else 0
 
-    # Rentang normal
-    normal_ranges = {
-        'Age': (18, 60),  # Rentang usia 
-        'BMI': (18.5, 24.9),
-        'Resting_BPM': (60, 100),
-        'Max_BPM': (120, 220),
-        'Avg_BPM': (70, 150),
-        'Session_Duration': (0.5, 2.0),  # dalam jam
-        'Calories_Burned': (200, 800),
-        'Fat_Percentage': (10, 30),
-        'Water_Intake': (2.0, 3.7),  # liter/hari
-        'Workout_Frequency': (3, 6)  # hari/minggu
+    # Data dalam format dictionary
+    data = {
+        'Age': age,
+        'Weight (kg)': weight,
+        'Height (m)': height,
+        'Max_BPM': max_bpm,
+        'Avg_BPM': avg_bpm,
+        'Resting_BPM': resting_bpm,
+        'Session_Duration (hours)': session_duration,
+        'Calories_Burned': calories_burned,
+        'Fat_Percentage': fat_percentage,
+        'Water_Intake (liters)': water_intake,
+        'Workout_Frequency (days/week)': workout_frequency,
+        'BMI': bmi,
+        'Gender_Male': gender_male,
+        'Workout_Type_Cardio': workout_type_cardio,
+        'Workout_Type_Strength': workout_type_strength,
+        'Experience_Level_Intermediate': experience_level_intermediate,
+        'Experience_Level_Advanced': experience_level_advanced
     }
+
+    # Sesuaikan urutan kolom dengan model
+    return pd.DataFrame([data]).reindex(columns=feature_names, fill_value=0)
 
 def check_abnormalities(inputs, normal_ranges):
     abnormalities = []
@@ -76,31 +86,23 @@ def check_abnormalities(inputs, normal_ranges):
         abnormalities.append("Frekuensi latihan terlalu rendah atau terlalu tinggi (3-6 hari per minggu).")
     return abnormalities
 
-    # Data dalam format dictionary
-    data = {
-        'Age': age,
-        'Weight (kg)': weight,
-        'Height (m)': height,
-        'Max_BPM': max_bpm,
-        'Avg_BPM': avg_bpm,
-        'Resting_BPM': resting_bpm,
-        'Session_Duration (hours)': session_duration,
-        'Calories_Burned': calories_burned,
-        'Fat_Percentage': fat_percentage,
-        'Water_Intake (liters)': water_intake,
-        'Workout_Frequency (days/week)': workout_frequency,
-        'BMI': bmi,
-        'Gender_Male': gender_male,
-        'Workout_Type_Cardio': workout_type_cardio,
-        'Workout_Type_Strength': workout_type_strength,
-        'Experience_Level_Intermediate': experience_level_intermediate,
-        'Experience_Level_Advanced': experience_level_advanced
-    }
-    # Sesuaikan urutan kolom dengan model
-    return pd.DataFrame([data]).reindex(columns=feature_names, fill_value=0)
-
 # Input dari pengguna
 input_df = user_input_features()
+
+# Rentang normal
+normal_ranges = {
+    'Age': (18, 60),  # Rentang usia 
+    'BMI': (18.5, 24.9),
+    'Resting_BPM': (60, 100),
+    'Max_BPM': (120, 220),
+    'Avg_BPM': (70, 150),
+    'Session_Duration': (0.5, 2.0),  # dalam jam
+    'Calories_Burned': (200, 800),
+    'Fat_Percentage': (10, 30),
+    'Water_Intake': (2.0, 3.7),  # liter/hari
+    'Workout_Frequency': (3, 6)  # hari/minggu
+}
+
 abnormalities = check_abnormalities(input_df, normal_ranges)
 
 # Display user input
