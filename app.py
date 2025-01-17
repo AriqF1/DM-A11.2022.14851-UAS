@@ -89,8 +89,9 @@ def check_abnormalities(inputs, normal_ranges):
 
 
 # Input dari pengguna
-inputs = user_input_features()
-    if st.button('Cek'):
+if st.button('Cek'):
+    inputs = user_input_features()
+  
 
 # Rentang normal
 normal_ranges = {
