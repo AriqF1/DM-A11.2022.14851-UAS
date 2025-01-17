@@ -121,6 +121,7 @@ if abnormalities:
 else:
     st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
 
+prediction = model.predict(inputs)
 # Prediction using the loaded model
 fitness_level = ""
 if prediction[0] == 0:
