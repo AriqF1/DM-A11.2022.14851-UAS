@@ -90,6 +90,7 @@ def check_abnormalities(inputs, normal_ranges):
 
 # Input dari pengguna
 inputs = user_input_features()
+if st.button('Cek'):
 
 # Rentang normal
 normal_ranges = {
@@ -120,6 +121,14 @@ else:
     st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
 
 # Prediction using the loaded model
-prediction = model.predict(inputs)
+fitness_level = ""
+if prediction[0] == 0:
+    fitness_level = " Anda Pada Level Beginner,mulailah rutih berolahraga dan menjaga pola makan!"
+elif prediction[0] == 1:
+    fitness_level = "Anda Pada Level Intermediate dengan memiliki pengalaman olahraga yang cukup, terus pertahankan kebugaran Anda!"
+elif prediction[0] == 2:
+    fitness_level = "Anda Pada Level Advanced (kebugaran tinggi ) , tetap jaga intensitas latihan!"
+
+# Display the fitness level as a message
 st.subheader("Predicted Fitness Level:")
-st.write("Predicted Fitness Level: " + str(prediction[0]))
+st.write(fitness_level)
