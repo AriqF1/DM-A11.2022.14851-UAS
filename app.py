@@ -89,47 +89,54 @@ def check_abnormalities(inputs, normal_ranges):
 
 
 # Input dari pengguna dan prediksi
+# Input dari pengguna
+inputs = user_input_features()
+
+# Ketika tombol 'Cek' ditekan
 if st.button('Cek'):
-    inputs = user_input_features()
-
-    # Rentang normal
-    normal_ranges = {
-        'Age': (18, 60),  # Rentang usia 
-        'BMI': (18.5, 24.9),
-        'Resting_BPM': (60, 100),
-        'Max_BPM': (120, 220),
-        'Avg_BPM': (70, 150),
-        'Session_Duration': (0.5, 2.0),  # dalam jam
-        'Calories_Burned': (200, 800),
-        'Fat_Percentage': (10, 30),
-        'Water_Intake': (2.0, 3.7),  # liter/hari
-        'Workout_Frequency': (3, 6)  # hari/minggu
-    }
-
-    abnormalities = check_abnormalities(inputs, normal_ranges)
-
-    # Display user input
-    st.subheader("User Input:")
-    st.write(inputs)
-
-    # Peringatan kesehatan
-    st.subheader("Peringatan Kesehatan:")
-    if abnormalities:
-        for warning in abnormalities:
-            st.warning(warning)
+    # Cek jika semua input sudah tersedia
+    if inputs.isnull().values.any():
+        st.warning("Harap lengkapi semua input sebelum melanjutkan!")
     else:
-        st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
+        # Rentang normal
+        normal_ranges = {
+            'Age': (18, 60),  # Rentang usia 
+            'BMI': (18.5, 24.9),
+            'Resting_BPM': (60, 100),
+            'Max_BPM': (120, 220),
+            'Avg_BPM': (70, 150),
+            'Session_Duration': (0.5, 2.0),  # dalam jam
+            'Calories_Burned': (200, 800),
+            'Fat_Percentage': (10, 30),
+            'Water_Intake': (2.0, 3.7),  # liter/hari
+            'Workout_Frequency': (3, 6)  # hari/minggu
+        }
 
-    # Prediction using the loaded model
-    prediction = model.predict(inputs)
-    fitness_level = ""
-    if prediction[0] == 0:
-        fitness_level = "Anda Pada Level Beginner, mulailah rutin berolahraga dan menjaga pola makan!"
-    elif prediction[0] == 1:
-        fitness_level = "Anda Pada Level Intermediate dengan pengalaman olahraga yang cukup, terus pertahankan kebugaran Anda!"
-    elif prediction[0] == 2:
-        fitness_level = "Anda Pada Level Advanced (kebugaran tinggi), tetap jaga intensitas latihan!"
+        abnormalities = check_abnormalities(inputs, normal_ranges)
 
-    # Display the fitness level as a message
-    st.subheader("Predicted Fitness Level:")
-    st.write(fitness_level)
+        # Display user input
+        st.subheader("User Input:")
+        st.write(inputs)
+
+        # Prediksi
+        st.subheader("Peringatan Kesehatan:")
+        if abnormalities:
+            for warning in abnormalities:
+                st.warning(warning)
+        else:
+            st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
+
+        # Prediksi kebugaran tubuh
+        prediction = model.predict(inputs)
+        fitness_level = ""
+        if prediction[0] == 0:
+            fitness_level = " Anda Pada Level Beginner, mulailah rutin berolahraga dan menjaga pola makan!"
+        elif prediction[0] == 1:
+            fitness_level = "Anda Pada Level Intermediate dengan memiliki pengalaman olahraga yang cukup, terus pertahankan kebugaran Anda!"
+        elif prediction[0] == 2:
+            fitness_level = "Anda Pada Level Advanced (kebugaran tinggi), tetap jaga intensitas latihan!"
+
+        # Display the fitness level as a message
+        st.subheader("Predicted Fitness Level:")
+        st.write(fitness_level)
+
