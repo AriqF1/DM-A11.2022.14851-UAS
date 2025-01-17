@@ -38,6 +38,44 @@ def user_input_features():
     experience_level_intermediate = 1 if experience_level == "Intermediate" else 0
     experience_level_advanced = 1 if experience_level == "Advanced" else 0
 
+    # Rentang normal
+    normal_ranges = {
+        'Age': (18, 60),  # Rentang usia 
+        'BMI': (18.5, 24.9),
+        'Resting_BPM': (60, 100),
+        'Max_BPM': (120, 220),
+        'Avg_BPM': (70, 150),
+        'Session_Duration': (0.5, 2.0),  # dalam jam
+        'Calories_Burned': (200, 800),
+        'Fat_Percentage': (10, 30),
+        'Water_Intake': (2.0, 3.7),  # liter/hari
+        'Workout_Frequency': (3, 6)  # hari/minggu
+    }
+
+def check_abnormalities(inputs, normal_ranges):
+    abnormalities = []
+    if not (normal_ranges['Age'][0] <= inputs['Age'] <= normal_ranges['Age'][1]):
+        abnormalities.append("Usia berada di luar rentang optimal untuk program kebugaran (18-60 tahun).")
+    if not (normal_ranges['BMI'][0] <= inputs['BMI'] <= normal_ranges['BMI'][1]):
+        abnormalities.append("BMI menunjukkan kondisi kekurangan berat badan atau kelebihan berat badan.")
+    if not (normal_ranges['Resting_BPM'][0] <= inputs['Resting_BPM'] <= normal_ranges['Resting_BPM'][1]):
+        abnormalities.append("Detak jantung saat istirahat (Resting BPM) berada di luar rentang normal (60-100 bpm).")
+    if not (normal_ranges['Max_BPM'][0] <= inputs['Max_BPM'] <= normal_ranges['Max_BPM'][1]):
+        abnormalities.append("Detak jantung maksimum (Max BPM) mungkin mengindikasikan potensi masalah kardiovaskular.")
+    if not (normal_ranges['Avg_BPM'][0] <= inputs['Avg_BPM'] <= normal_ranges['Avg_BPM'][1]):
+        abnormalities.append("Rata-rata detak jantung (Avg BPM) berada di luar rentang normal, yang dapat mengindikasikan aktivitas jantung yang tidak teratur.")
+    if not (normal_ranges['Session_Duration'][0] <= inputs['Session_Duration (hours)'] <= normal_ranges['Session_Duration'][1]):
+        abnormalities.append("Durasi sesi berada di luar rentang yang direkomendasikan (0,5-2,0 jam).")
+    if not (normal_ranges['Calories_Burned'][0] <= inputs['Calories_Burned'] <= normal_ranges['Calories_Burned'][1]):
+        abnormalities.append("Kalori yang terbakar terlalu rendah atau terlalu tinggi untuk sebuah sesi.")
+    if not (normal_ranges['Fat_Percentage'][0] <= inputs['Fat_Percentage'] <= normal_ranges['Fat_Percentage'][1]):
+        abnormalities.append("Persentase lemak tubuh berada di luar rentang sehat (10-30%).")
+    if not (normal_ranges['Water_Intake'][0] <= inputs['Water_Intake (liters)'] <= normal_ranges['Water_Intake'][1]):
+        abnormalities.append("Asupan air berada di bawah atau di atas jumlah harian yang direkomendasikan (2,0-3,7 liter).")
+    if not (normal_ranges['Workout_Frequency'][0] <= inputs['Workout_Frequency (days/week)'] <= normal_ranges['Workout_Frequency'][1]):
+        abnormalities.append("Frekuensi latihan terlalu rendah atau terlalu tinggi (3-6 hari per minggu).")
+    return abnormalities
+
     # Data dalam format dictionary
     data = {
         'Age': age,
@@ -63,13 +101,16 @@ def user_input_features():
 
 # Input dari pengguna
 input_df = user_input_features()
+abnormalities = check_abnormalities(user_inputs, normal_ranges)
 
 # Display user input
 st.subheader("User Input:")
 st.write(input_df)
 
 # Prediksi
-if st.button("Predict Fitness Level"):
-    prediction = model.predict(input_df)
-    st.subheader("Prediction Result:")
-    st.write(f"Predicted Fitness Level: {prediction[0]}")
+st.subheader("Peringatan Kesehatan:")
+if abnormalities:
+    for warning in abnormalities:
+        st.warning(warning)
+else:
+    st.success("Kebugaran Tubuh Normal, Pertahankan..!!")
