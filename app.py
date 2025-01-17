@@ -87,7 +87,7 @@ def check_abnormalities(inputs, normal_ranges):
     return abnormalities
 
 # Input dari pengguna
-input_df = user_input_features()
+inputs = user_input_features()
 
 # Rentang normal
 normal_ranges = {
@@ -103,11 +103,11 @@ normal_ranges = {
     'Workout_Frequency': (3, 6)  # hari/minggu
 }
 
-abnormalities = check_abnormalities(input_df, normal_ranges)
+abnormalities = check_abnormalities(inputs, normal_ranges)
 
 # Display user input
 st.subheader("User Input:")
-st.write(input_df)
+st.write(inputs)
 
 # Prediksi
 st.subheader("Peringatan Kesehatan:")
