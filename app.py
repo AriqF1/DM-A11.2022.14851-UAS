@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load model
+# Load model dan fitur
 model = joblib.load('decision_tree_model.pkl')
 feature_names = joblib.load('feature_names.pkl')
 
@@ -13,6 +13,7 @@ st.title("Fitness Level Prediction App")
 st.sidebar.header("Input Features")
 
 def user_input_features():
+    # Input dari pengguna
     age = st.sidebar.slider("Age", 10, 80, 25)
     weight = st.sidebar.slider("Weight (kg)", 30, 150, 70)
     height = st.sidebar.slider("Height (m)", 1.0, 2.5, 1.75)
@@ -37,6 +38,7 @@ def user_input_features():
     experience_level_intermediate = 1 if experience_level == "Intermediate" else 0
     experience_level_advanced = 1 if experience_level == "Advanced" else 0
 
+    # Data dalam format dictionary
     data = {
         'Age': age,
         'Weight (kg)': weight,
@@ -46,7 +48,7 @@ def user_input_features():
         'Resting_BPM': resting_bpm,
         'Session_Duration (hours)': session_duration,
         'Calories_Burned': calories_burned,
-        'Fat_Percentage': fat_precentage,
+        'Fat_Percentage': fat_percentage,
         'Water_Intake (liters)': water_intake,
         'Workout_Frequency (days/week)': workout_frequency,
         'BMI': bmi,
@@ -56,15 +58,17 @@ def user_input_features():
         'Experience_Level_Intermediate': experience_level_intermediate,
         'Experience_Level_Advanced': experience_level_advanced
     }
-   return pd.DataFrame([data]).reindex(columns=feature_names, fill_value=0)
+    # Sesuaikan urutan kolom dengan model
+    return pd.DataFrame([data]).reindex(columns=feature_names, fill_value=0)
 
+# Input dari pengguna
 input_df = user_input_features()
 
 # Display user input
 st.subheader("User Input:")
 st.write(input_df)
 
-# Prediction
+# Prediksi
 if st.button("Predict Fitness Level"):
     prediction = model.predict(input_df)
     st.subheader("Prediction Result:")
