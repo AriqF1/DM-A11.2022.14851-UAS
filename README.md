@@ -1,7 +1,7 @@
 # Proyek Prediksi Tingkat Kebugaran
 
 ## Deskripsi
-Proyek ini bertujuan untuk memprediksi tingkat kebugaran individu berdasarkan berbagai fitur yang terkait dengan kesehatan, seperti usia, BMI, detak jantung, kebiasaan latihan, dan lainnya. Model prediksi ini membantu menilai apakah seseorang termasuk dalam kategori "Pemula", "Menengah", atau "Lanjutan" berdasarkan tingkat kebugaran mereka, memberikan wawasan yang berharga mengenai kesehatan dan kebugaran mereka. Model ini dibangun menggunakan *decision tree classifier*, yang dilatih dengan dataset yang berisi atribut-atribut yang terkait dengan kesehatan dan kebugaran.
+Proyek ini bertujuan untuk memprediksi tingkat kebugaran individu berdasarkan berbagai fitur yang terkait dengan kesehatan, seperti usia, BMI, detak jantung, kebiasaan latihan, dan lainnya. Model prediksi ini membantu menilai apakah seseorang termasuk dalam kategori "Beginner", "Intermediate", atau "Advanced" berdasarkan tingkat kebugaran inputan user, memberikan wawasan yang berharga mengenai kesehatan dan kebugaran diri. Model ini dibangun menggunakan *decision tree classifier*, yang dilatih dengan dataset yang berisi atribut-atribut yang terkait dengan kesehatan dan kebugaran.
 
 ## Gambaran Umum Proyek
 Tujuan dari proyek ini adalah untuk membuat model prediktif yang dapat mengklasifikasikan tingkat kebugaran individu berdasarkan data input mereka. Proyek ini terdiri dari beberapa tahapan:
@@ -19,9 +19,9 @@ Tujuan dari proyek ini adalah untuk membuat model prediktif yang dapat mengklasi
 6. **Kesimpulan**: Membahas hasil yang diperoleh, termasuk performa model dan area untuk perbaikan lebih lanjut.
 
 ## Struktur Proyek
-- **data**: Berisi dataset mentah dan dataset yang telah dibersihkan untuk pelatihan.
-- **notebooks**: Jupyter notebook untuk EDA, pemrosesan data, dan pelatihan model.
-- **models**: Berisi model yang telah dilatih dan daftar fitur.
+- **requirements.txt**: Data libraries yang diperlukan untuk streamlit.app.
+- **UAS_DM.jpynb**: Jupyter notebook untuk EDA, pemrosesan data, dan pelatihan model.
+- **decision_tree_model.pkl**: Berisi model yang telah dilatih dan daftar fitur.
 - **app.py**: Aplikasi Streamlit untuk memprediksi tingkat kebugaran berdasarkan input pengguna.
 
 ## Persyaratan
